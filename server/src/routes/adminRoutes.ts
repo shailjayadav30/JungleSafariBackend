@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { createvehicle } from "../controllers/vehiclecontroller";
+// import { createvehicle } from "../controllers/vehiclecontroller";
 
-const router=Router()
+const router = Router();
 
-router.post("/vehicle",createvehicle)
+// router.post("/vehicle", createvehicle);
 
 export default router;

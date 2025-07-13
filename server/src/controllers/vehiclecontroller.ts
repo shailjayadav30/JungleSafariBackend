@@ -4,14 +4,13 @@ import { uploadImageoncloudinary } from "../utils/cloudinary";
 import { UploadApiResponse } from "cloudinary";
 
 export const addvehicle = async (req: Request, res: Response) => {
-    try {
-  console.log("Inside add vehicle")
-  const localImagePath = req.file;
-  if (!localImagePath) {
-    res.status(400).json({ message: "Image is required" });
-    return;
-  }
-
+  try {
+    console.log("Inside add vehicle");
+    const localImagePath = req.file;
+    if (!localImagePath) {
+      res.status(400).json({ message: "Image is required" });
+      return;
+    }
 
     const imageUrl: UploadApiResponse = await uploadImageoncloudinary(
       localImagePath
@@ -113,11 +112,13 @@ export const updatevehicle = async (req: Request, res: Response) => {
       res.status(400).json({ message: "vehicle does not exists" });
       return;
     }
-let imageUrl = existingvehicle.imageUrl;
+    let imageUrl = existingvehicle.imageUrl;
 
     // ✅ Handle new image upload (if a new file is provided)
     if (req.file) {
-      const uploadResult: UploadApiResponse = await uploadImageoncloudinary(req.file);
+      const uploadResult: UploadApiResponse = await uploadImageoncloudinary(
+        req.file
+      );
       imageUrl = uploadResult.secure_url;
     }
     const updatedvehicle = await prisma.vehicle.update({
@@ -127,14 +128,14 @@ let imageUrl = existingvehicle.imageUrl;
         capacity: parseInt(body.capacity),
         vehicleType: body.vehicleType,
         typeId: body.typeId,
-        imageUrl:imageUrl,
+        imageUrl: imageUrl,
       },
     });
     res
       .status(200)
       .json({ message: "vehicle updated successfully", updatedvehicle });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({ message: "error in updating vehicle", error });
   }
 };

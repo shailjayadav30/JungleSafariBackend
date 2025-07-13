@@ -1,10 +1,9 @@
 import { Router } from "express";
-import { register,login } from "../controllers/authconroller";
+import { register, login } from "../controllers/authconroller";
 
-const authrouter=Router()
+const authrouter = Router();
 
-authrouter.post("/register",register)
-authrouter.post("/login",login)
+authrouter.post("/register", register);
+authrouter.post("/login", login);
 
-
-export default authrouter
+export default authrouter;

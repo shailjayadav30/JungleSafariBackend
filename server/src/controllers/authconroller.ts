@@ -26,9 +26,7 @@ export const register = async (req: Request, res: Response) => {
     });
 
     if (existinguser) {
-      res
-        .status(404)
-        .json({ message: "user allready registered Login" });
+      res.status(404).json({ message: "user allready registered Login" });
       return;
     }
     const hashedpass = await bcrypt.hash(body.password, 10);
@@ -72,7 +70,7 @@ export const login = async (req: Request, res: Response) => {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string);
 
     res.cookie("token", token, {
-      httpOnly: true  ,
+      httpOnly: true,
       secure: false,
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       maxAge: 60 * 60 * 1000,

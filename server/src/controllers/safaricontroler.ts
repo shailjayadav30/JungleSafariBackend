@@ -62,25 +62,6 @@ export const addsafari = async (req: Request, res: Response) => {
   }
 };
 
-// export const getallsafari = async (req: Request, res: Response) => {
-//   try {
-//     const safari = await prisma.safari.findMany(
-//       {
-//         select: {
-//         id: true,
-//         title: true,
-//       },
-//       }
-//     );
-//     res
-//       .status(200)
-//       .json({ message: "All safari fetched successfully!! ", safari });
-//   } catch (error) {
-//     console.error("Error fetching safari:", error);
-//     res.status(400).json({ mesage: "Error in getting safrai", error });
-//   }
-// };
-
 export const getallsafari = async (req: Request, res: Response) => {
   try {
     const safaris = await prisma.safari.findMany({
@@ -96,37 +77,35 @@ export const getallsafari = async (req: Request, res: Response) => {
         highlights: true,
         safariImage: true,
       },
-    })
+    });
+    console.log("Fetched safaris from DB:", safaris);
 
-    // Log the data to check what's being returned
-    console.log('Fetched safaris from DB:', safaris)
-
-    // Ensure all fields have default values if they're null/undefined
-    const safariWithDefaults = safaris.map(safari => ({
+    const safariWithDefaults = safaris.map((safari) => ({
       ...safari,
-      title: safari.title || 'Untitled Safari',
-      location: safari.location || 'Location TBD',
-      duration: safari.duration || 'Duration TBD',
+      title: safari.title || "Untitled Safari",
+      location: safari.location || "Location TBD",
+      duration: safari.duration || "Duration TBD",
       price: safari.price || 0,
       rating: safari.rating || 0,
       reviews: safari.reviews || 0,
-      bestTime: safari.bestTime || 'Year round',
-      highlights: safari.highlights || 'Amazing wildlife experience',
-      safariImage: safari.safariImage || null
-    }))
+      bestTime: safari.bestTime || "Year round",
+      highlights: safari.highlights || "Amazing wildlife experience",
+      safariImage: safari.safariImage || null,
+    }));
 
-    res.status(200).json({ 
-      message: "All safaris fetched successfully!!", 
-      safari: safariWithDefaults 
-    })
+    res.status(200).json({
+      message: "All safaris fetched successfully!!",
+      safari: safariWithDefaults,
+    });
   } catch (error) {
-    console.error("Error fetching safaris:", error)
-    res.status(500).json({ 
-      message: "Error in getting safaris", 
-      error: error instanceof Error ? error.message : 'Unknown error'
-    })
+    console.error("Error fetching safaris:", error);
+    res.status(500).json({
+      message: "Error in getting safaris",
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
   }
-}
+};
+
 export const updatesafari = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -167,16 +146,19 @@ export const updatesafari = async (req: Request, res: Response) => {
 export const deletesafari = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+
     const deletesafari = await prisma.safari.delete({
-      where: {
-        id,
-      },
+      where: { id },
     });
+
     res
       .status(200)
-      .json({ message: "SAFARI DELETED SUCCESSFULLY", deletesafari });
+      .json({ message: "Safari deleted successfully", safari: deletesafari });
+    return;
   } catch (error) {
-    res.status(400).json({ message: "Internal server error" });
+    console.error("Error deleting safari:", error);
+    res.status(500).json({ message: "Internal server error", error });
+    return;
   }
 };
 

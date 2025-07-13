@@ -27,8 +27,8 @@ export const createBooking = async (req: Request, res: Response) => {
     !safariId ||
     totalPrice === undefined
   ) {
-     res.status(400).json({ message: "All details are required" });
-     return
+    res.status(400).json({ message: "All details are required" });
+    return;
   }
 
   try {
