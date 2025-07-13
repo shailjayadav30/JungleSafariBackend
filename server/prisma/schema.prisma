@@ -1,0 +1,122 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model User {
+  id        String    @id @default(uuid())
+  username  String    @unique
+  password  String
+  email     String    @unique
+  phone     String?
+  role      Role      @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  bookings  Booking[]
+}
+
+model Booking {
+  id                String            @id @default(uuid())
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  firstName         String
+  lastName          String
+  email             String 
+  phoneNumber       String
+  checkInDate       DateTime
+  adults            Int
+  children          Int
+  accommodationType AccommodationType
+  specialRequest    String?
+  safariId          String
+  safari            Safari            @relation(fields: [safariId], references: [id])
+  userId            String?
+  user              User?             @relation(fields: [userId], references: [id])
+  totalPrice        Float?
+}
+
+model Vehicle {
+  id          String       @id @default(uuid())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  vehicleNo   String       @unique
+  capacity    Int?
+  vehicleType Type         @default(JEEP)
+  typeId      String?
+  type        VehicleType? @relation(fields: [typeId], references: [id])
+  imageUrl    String?
+}
+
+model VehicleType {
+  id           String    @id @default(uuid())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  vehicleName  String?
+  type         Type      @unique
+  capacity     Int       @default(6)
+  totalvehicle Int       @default(0)
+  vehicles     Vehicle[]
+}
+
+model Safari {
+  id          String  @id @default(uuid())
+  title       String
+  location    String
+  duration    String
+  price       Float
+  rating      Float
+  reviews     Int
+  bestTime    String
+  safariImage String?
+  highlights  String
+  bookings Booking[]
+}
+
+model Contact{
+  id String @id @default(uuid())
+  FullName String
+  email String
+  phone String
+  inquiryType InquiryType
+  Subject  String?
+  message String
+}
+
+enum Type {
+  JEEP
+  MARUTI
+  LANDROVER
+  TATAHARIER
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum AccommodationType {
+  STANDARD
+  PREMIUM
+  LUXURY
+}
+
+enum InquiryType {
+  SAFARI_BOOKING
+  GENERAL_INFORMATION
+  CUSTOM_SAFARI
+  GROUP_BOOKING
+  CUSTOMER_SUPPORT
+  OTHER
+}
