@@ -9,13 +9,10 @@ import safariroute from "./routes/safariroute";
 dotenv.config();
 const PORT = process.env.PORT || "3000";
 const app = express();
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://jungle-safari-frontend.vercel.app/",
-];
+
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: "https://jungle-safari-frontend.vercel.app/",
     credentials: true,
   })
 );

@@ -76,7 +76,6 @@ export default function BookingPage() {
         );
 
         if (response.data?.safari && Array.isArray(response.data.safari)) {
-          // Transform the data to match frontend expectations
           const transformedSafaris = response.data.safari.map(
             (safari: SafariPackage) => ({
               ...safari,
