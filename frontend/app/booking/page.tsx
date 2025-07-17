@@ -631,11 +631,11 @@ export default function BookingPage() {
     }
 
     try {
-      const response = await axios.post("http://localhost:4000/api/booking/book", {
+      const response = await axios.post("https://jungle-safari-backend.vercel.app/api/booking/book", {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
-        phoneNumber: formData.phone, // Note: API expects phoneNumber
+        phoneNumber: formData.phone,
         adults: adults,
         children: children,
         accommodationType: formData.accommodation.toUpperCase(), // Convert to enum format
@@ -643,12 +643,13 @@ export default function BookingPage() {
         safariId: selectedSafari,
         checkInDate,
         totalPrice,
-      })
+      },{withCredentials:true}
+    )
 
       alert("Booking submitted successfully! We'll contact you soon to confirm your safari adventure.")
       console.log("Response:", response.data)
 
-      // Reset form
+   
       setFormData({
         firstName: "",
         lastName: "",

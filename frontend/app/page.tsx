@@ -66,7 +66,7 @@ export default function HomePage() {
             <span className="block text-amber-400">Await You</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
-            Embark on unforgettable jungle safaris and witness nature's most magnificent creatures in their natural
+            Embark on unforgettable jungle safaris and witness natures most magnificent creatures in their natural
             habitat
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

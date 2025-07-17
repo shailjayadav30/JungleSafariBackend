@@ -22,7 +22,7 @@ export default function LoginPage() {
   const  handleSubmit =async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const response= await axios.post("http://localhost:4000/api/auth/login",{
+      const response= await axios.post("https://jungle-safari-backend.vercel.app/api/auth/login",{
         email:formData.email,
         password:formData.password
 },

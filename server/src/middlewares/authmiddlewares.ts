@@ -7,10 +7,10 @@ export const authmiddleware = (
   next: NextFunction
 ) => {
   const token = req.cookies?.token;
-  console.log("🛡️ Auth Middleware Triggered");
-  console.log("📦 Token received:", token);
+  console.log("Auth Middleware Triggered");
+  console.log("Token received:", token);
   if (!token) {
-    console.log("❌ No token found");
+    console.log(" No token found");
     res.status(400).json({ message: "Unauthorized:no token" });
     return;
   }
@@ -20,11 +20,11 @@ export const authmiddleware = (
       id: number;
     };
     (req as any).userId = decodetoken.id;
-    console.log("✅ Token verified. User ID:", decodetoken.id);
+    console.log("Token verified. User ID:", decodetoken.id);
 
     next();
   } catch (error) {
-    console.log("❌ Token verification failed:", error);
+    console.log("Token verification failed:", error);
     res.status(401).json({ message: "Unauthorized: Invalid token" });
     return;
   }

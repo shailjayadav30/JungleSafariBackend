@@ -112,7 +112,7 @@ export default function SafarisPage() {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-800 mb-4">Safari Adventures</h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover our carefully curated safari experiences across the globe's most spectacular wildlife
+              Discover our carefully curated safari experiences across the globes most spectacular wildlife
               destinations
             </p>
           </div>
@@ -261,7 +261,7 @@ export default function SafarisPage() {
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-800 mb-4">Why Choose Our Safaris?</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                We're committed to providing unforgettable wildlife experiences while supporting conservation efforts
+                Were committed to providing unforgettable wildlife experiences while supporting conservation efforts
               </p>
             </div>
 
