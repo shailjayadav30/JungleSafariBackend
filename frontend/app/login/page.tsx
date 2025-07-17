@@ -1,51 +1,60 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { TreePine, Eye, EyeOff } from "lucide-react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import axios from "axios"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { TreePine, Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
-  const router = useRouter()
+  });
+  const router = useRouter();
 
-  const  handleSubmit =async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
-      const response= await axios.post("https://jungle-safari-backend.vercel.app/api/auth/login",{
-        email:formData.email,
-        password:formData.password
-},
- { withCredentials: true}
-)
-alert("user login successffully");
- console.log('Response:', response.data);
-    router.push("/")
-
-
+      const response = await axios.post(
+        "https://jungle-safari-backend.vercel.app/api/auth/login",
+        {
+          email: formData.email,
+          password: formData.password,
+        },
+        { withCredentials: true }
+      );
+      alert("user login successffully");
+      console.log("Response:", response.data);
+      router.push("/");
     } catch (error) {
-       console.error("Login failed:", error);
-  alert("Login failed. Please check your credentials.");
+      console.error("Login failed:", error);
+      alert("Login failed. Please check your credentials.");
     }
 
-    console.log("Login attempt:", formData)
-  }
+    console.log("Login attempt:", formData);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-100 via-amber-50 to-green-200 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-green-700 font-bold text-2xl">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-green-700 font-bold text-2xl"
+          >
             <TreePine className="w-8 h-8" />
             Wild Safari
           </Link>
@@ -54,8 +63,12 @@ alert("user login successffully");
 
         <Card className="shadow-xl border-0">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold text-gray-800">Sign In</CardTitle>
-            <CardDescription>Enter your credentials to access your safari adventures</CardDescription>
+            <CardTitle className="text-2xl font-bold text-gray-800">
+              Sign In
+            </CardTitle>
+            <CardDescription>
+              Enter your credentials to access your safari adventures
+            </CardDescription>
           </CardHeader>
 
           <CardContent>
@@ -67,7 +80,9 @@ alert("user login successffully");
                   type="email"
                   placeholder="your@email.com"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   required
                   className="h-12"
                 />
@@ -81,7 +96,9 @@ alert("user login successffully");
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, password: e.target.value })
+                    }
                     required
                     className="h-12 pr-12"
                   />
@@ -92,12 +109,19 @@ alert("user login successffully");
                     className="absolute right-0 top-0 h-12 w-12"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4" />
+                    ) : (
+                      <Eye className="w-4 h-4" />
+                    )}
                   </Button>
                 </div>
               </div>
 
-              <Button type="submit" className="w-full h-12 bg-green-600 hover:bg-green-700 text-lg">
+              <Button
+                type="submit"
+                className="w-full h-12 bg-green-600 hover:bg-green-700 text-lg"
+              >
                 Sign In
               </Button>
             </form>
@@ -105,16 +129,17 @@ alert("user login successffully");
             <div className="mt-6 text-center">
               <p className="text-gray-600">
                 Dont have an account?{" "}
-                <Link href="/register" className="text-green-600 hover:text-green-700 font-semibold">
+                <Link
+                  href="/register"
+                  className="text-green-600 hover:text-green-700 font-semibold"
+                >
                   Sign up here
                 </Link>
               </p>
             </div>
-
-            
           </CardContent>
         </Card>
       </div>
     </div>
-  )
+  );
 }

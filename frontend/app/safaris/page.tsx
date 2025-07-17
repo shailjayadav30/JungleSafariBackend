@@ -1,12 +1,24 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Star, MapPin, Clock, Users, Search, Filter } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import Navigation from "@/components/navigation"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Star, MapPin, Clock, Users, Search, Filter } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import Navigation from "@/components/navigation";
 
 export default function SafarisPage() {
   const safariPackages = [
@@ -100,7 +112,7 @@ export default function SafarisPage() {
       groupSize: "2-8 people",
       bestTime: "Apr-Nov",
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-amber-50">
@@ -110,10 +122,12 @@ export default function SafarisPage() {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">Safari Adventures</h1>
+            <h1 className="text-4xl font-bold text-gray-800 mb-4">
+              Safari Adventures
+            </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover our carefully curated safari experiences across the globes most spectacular wildlife
-              destinations
+              Discover our carefully curated safari experiences across the
+              globes most spectacular wildlife destinations
             </p>
           </div>
 
@@ -123,7 +137,10 @@ export default function SafarisPage() {
               <div className="grid md:grid-cols-4 gap-4">
                 <div className="relative">
                   <Search className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
-                  <Input placeholder="Search destinations..." className="pl-10" />
+                  <Input
+                    placeholder="Search destinations..."
+                    className="pl-10"
+                  />
                 </div>
 
                 <Select>
@@ -165,7 +182,10 @@ export default function SafarisPage() {
           {/* Safari Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {safariPackages.map((safari) => (
-              <Card key={safari.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
+              <Card
+                key={safari.id}
+                className="overflow-hidden hover:shadow-xl transition-shadow group"
+              >
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={safari.image || "/placeholder.svg"}
@@ -176,8 +196,12 @@ export default function SafarisPage() {
                   <div className="absolute top-4 right-4 flex flex-col gap-2">
                     <Badge className="bg-green-600 text-white">
                       Save $
-                      {Number.parseInt(safari.originalPrice.replace("$", "").replace(",", "")) -
-                        Number.parseInt(safari.price.replace("$", "").replace(",", ""))}
+                      {Number.parseInt(
+                        safari.originalPrice.replace("$", "").replace(",", "")
+                      ) -
+                        Number.parseInt(
+                          safari.price.replace("$", "").replace(",", "")
+                        )}
                     </Badge>
                     <Badge variant="secondary" className="bg-white/90">
                       {safari.difficulty}
@@ -211,7 +235,9 @@ export default function SafarisPage() {
                       <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                       <span className="font-semibold">{safari.rating}</span>
                     </div>
-                    <span className="text-gray-500">({safari.reviews} reviews)</span>
+                    <span className="text-gray-500">
+                      ({safari.reviews} reviews)
+                    </span>
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -225,14 +251,20 @@ export default function SafarisPage() {
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-2xl font-bold text-green-600">{safari.price}</span>
-                        <span className="text-sm text-gray-500 line-through">{safari.originalPrice}</span>
+                        <span className="text-2xl font-bold text-green-600">
+                          {safari.price}
+                        </span>
+                        <span className="text-sm text-gray-500 line-through">
+                          {safari.originalPrice}
+                        </span>
                       </div>
                       <div className="text-xs text-gray-500">per person</div>
                     </div>
                     <div className="text-right">
                       <div className="text-sm text-gray-600">Best time:</div>
-                      <div className="text-sm font-semibold">{safari.bestTime}</div>
+                      <div className="text-sm font-semibold">
+                        {safari.bestTime}
+                      </div>
                     </div>
                   </div>
 
@@ -240,8 +272,14 @@ export default function SafarisPage() {
                     <Button asChild variant="outline" size="sm">
                       <Link href={`/safaris/${safari.id}`}>View Details</Link>
                     </Button>
-                    <Button asChild size="sm" className="bg-green-600 hover:bg-green-700">
-                      <Link href={`/booking?safari=${safari.id}`}>Book Now</Link>
+                    <Button
+                      asChild
+                      size="sm"
+                      className="bg-green-600 hover:bg-green-700"
+                    >
+                      <Link href={`/booking?safari=${safari.id}`}>
+                        Book Now
+                      </Link>
                     </Button>
                   </div>
                 </CardContent>
@@ -259,9 +297,12 @@ export default function SafarisPage() {
           {/* Why Choose Us */}
           <section className="mt-20 py-16 px-8 bg-white rounded-2xl shadow-lg">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">Why Choose Our Safaris?</h2>
+              <h2 className="text-3xl font-bold text-gray-800 mb-4">
+                Why Choose Our Safaris?
+              </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Were committed to providing unforgettable wildlife experiences while supporting conservation efforts
+                Were committed to providing unforgettable wildlife experiences
+                while supporting conservation efforts
               </p>
             </div>
 
@@ -272,7 +313,8 @@ export default function SafarisPage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Expert Guides</h3>
                 <p className="text-gray-600">
-                  Local wildlife experts with years of experience and deep knowledge of animal behavior
+                  Local wildlife experts with years of experience and deep
+                  knowledge of animal behavior
                 </p>
               </div>
 
@@ -280,9 +322,12 @@ export default function SafarisPage() {
                 <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Star className="w-8 h-8 text-amber-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Premium Experience</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  Premium Experience
+                </h3>
                 <p className="text-gray-600">
-                  Carefully selected accommodations and exclusive access to the best wildlife viewing spots
+                  Carefully selected accommodations and exclusive access to the
+                  best wildlife viewing spots
                 </p>
               </div>
 
@@ -290,9 +335,12 @@ export default function SafarisPage() {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Filter className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Conservation Focus</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  Conservation Focus
+                </h3>
                 <p className="text-gray-600">
-                  Supporting local communities and wildlife conservation through responsible tourism practices
+                  Supporting local communities and wildlife conservation through
+                  responsible tourism practices
                 </p>
               </div>
             </div>
@@ -300,5 +348,5 @@ export default function SafarisPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

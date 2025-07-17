@@ -27,7 +27,7 @@ export default function RegisterPage() {
     phone: "",
     password: "",
     confirmPassword: "",
-    role:"USER"
+    role: "USER",
   });
   const router = useRouter();
 
@@ -38,23 +38,23 @@ export default function RegisterPage() {
       alert("Passwords don't match!");
       return;
     }
-    
+
     try {
       const response = await axios.post(
         "https://jungle-safari-backend.vercel.app/auth/register",
         {
           username: formData.username,
-      email: formData.email,
-      phone: formData.phone,
-      password: formData.password,
-      role:formData.role
+          email: formData.email,
+          phone: formData.phone,
+          password: formData.password,
+          role: formData.role,
         }
       );
       console.log("Response:", response.data);
-    router.push("/login");
+      router.push("/login");
     } catch (error) {
-         console.error("Registration error:", error)
-    alert("Registration failed. Please try again.")
+      console.error("Registration error:", error);
+      alert("Registration failed. Please try again.");
     }
   };
 
@@ -203,20 +203,21 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-            <div className="space-y-2">
-  <Label htmlFor="role">Select Role</Label>
-  <select
-    id="role"
-    value={formData.role}
-    onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-    required
-    className="h-10 px-3 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
-  >
-    <option value="USER">User</option>
-    <option value="ADMIN">Admin</option>
-  </select>
-</div>
-
+              <div className="space-y-2">
+                <Label htmlFor="role">Select Role</Label>
+                <select
+                  id="role"
+                  value={formData.role}
+                  onChange={(e) =>
+                    setFormData({ ...formData, role: e.target.value })
+                  }
+                  required
+                  className="h-10 px-3 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+                >
+                  <option value="USER">User</option>
+                  <option value="ADMIN">Admin</option>
+                </select>
+              </div>
 
               <Button
                 type="submit"
@@ -237,8 +238,6 @@ export default function RegisterPage() {
                 </Link>
               </p>
             </div>
-
-           
           </CardContent>
         </Card>
       </div>
