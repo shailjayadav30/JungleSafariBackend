@@ -30,11 +30,13 @@ import axios from "axios";
 
 export default function SafarisPage() {
   const [safaripackages, setSafariPackages] = useState<SafariPackage[]>([]);
+        const url = process.env.NEXT_PUBLIC_URL;
 
   useEffect(() => {
     const getSafari = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/safari/all");
+        // const response = await axios.get("http://localhost:4000/api/safari/all");
+         const response = await axios.get(`${url}api/safari/all`)
         console.log("Safari API Response", response.data);
         setSafariPackages(response.data.safari ?? []); // assuming API returns { safaris: [] }
       } catch (error) {

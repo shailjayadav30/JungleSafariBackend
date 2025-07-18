@@ -54,7 +54,7 @@ export default function BookingPage() {
   const [safariPackages, setSafariPackages] = useState<SafariPackage[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
- 
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -65,16 +65,17 @@ export default function BookingPage() {
     accommodation: "standard",
     specialRequests: "",
   });
+        const url = process.env.NEXT_PUBLIC_URL;
 
   useEffect(() => {
     const getSafari = async () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await axios.get(
-          "http://localhost:4000/api/safari/all"
-        );
-
+        // const response = await axios.get(
+        //   "http://localhost:4000/api/safari/all"
+        // );
+        const response = await axios.get(`${url}api/safari/all`);
         if (response.data?.safari && Array.isArray(response.data.safari)) {
           const transformedSafaris = response.data.safari.map(
             (safari: SafariPackage) => ({
@@ -139,8 +140,11 @@ export default function BookingPage() {
     }
 
     try {
-      const response = await axios.post(
-        "https://jungle-safari-backend.vercel.app/api/booking/book",
+
+      // const response = await axios.post(
+      //   "https://jungle-safari-backend.vercel.app/api/booking/book",
+           const response = await axios.post(
+        `${url}api/booking/book`,
         {
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -149,7 +153,7 @@ export default function BookingPage() {
           adults: adults,
           children: children,
           accommodationType: formData.accommodation.toUpperCase(), // Convert to enum format
-          specialRequest: formData.specialRequests, // Note: API expects specialRequest (singular)
+          specialRequest: formData.specialRequests, 
           safariId: selectedSafari,
           checkInDate,
           totalPrice,
@@ -195,7 +199,6 @@ export default function BookingPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-green-50 to-amber-50">
-
         <div className="pt-20 pb-12 px-4">
           <div className="max-w-6xl mx-auto text-center">
             <div className="text-xl text-red-600">{error}</div>

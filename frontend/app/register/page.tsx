@@ -40,16 +40,17 @@ export default function RegisterPage() {
     }
 
     try {
-      const response = await axios.post(
-        "https://jungle-safari-backend.vercel.app/api/auth/register",
-        {
-          username: formData.username,
-          email: formData.email,
-          phone: formData.phone,
-          password: formData.password,
-          role: formData.role,
-        }
-      );
+      const url = process.env.NEXT_PUBLIC_URL;
+
+      // const response = await axios.post(
+      //   "/api/auth/register",
+      const response = await axios.post(`${url}api/auth/register`, {
+        username: formData.username,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+        role: formData.role,
+      });
       console.log("Response:", response.data);
       router.push("/login");
     } catch (error) {
