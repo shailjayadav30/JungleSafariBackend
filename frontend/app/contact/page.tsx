@@ -22,8 +22,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MapPin, Phone, Mail, Clock, TreePine } from "lucide-react";
-import Navigation from "@/components/navigation";
-
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -50,7 +48,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-amber-50">
-      <Navigation />
+
 
       <div className="pt-20 pb-12 px-4">
         <div className="max-w-6xl mx-auto">
@@ -64,9 +62,9 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-12 ">
             {/* Contact Form */}
-            <Card className="shadow-lg">
+            <Card className="shadow-lg h-[42rem]">
               <CardHeader>
                 <CardTitle className="text-2xl">Send us a Message</CardTitle>
                 <CardDescription>
@@ -75,8 +73,8 @@ export default function ContactPage() {
                 </CardDescription>
               </CardHeader>
 
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+              <CardContent className="pb-0">
+                <form onSubmit={handleSubmit} className="space-y-4 mb-0 pb-0">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
                     <Input
@@ -173,7 +171,7 @@ export default function ContactPage() {
 
                   <Button
                     type="submit"
-                    className="w-full h-12 bg-green-600 hover:bg-green-700 text-lg"
+                    className="w-full  h-12 bg-green-600 hover:bg-green-700 text-lg"
                   >
                     Send Message
                   </Button>

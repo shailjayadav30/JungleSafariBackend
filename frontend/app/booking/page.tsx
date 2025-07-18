@@ -30,7 +30,7 @@ import { Separator } from "@/components/ui/separator";
 import { CalendarIcon, MapPin, Clock, Star, TreePine } from "lucide-react";
 import { format } from "date-fns";
 import Link from "next/link";
-import Navigation from "@/components/navigation";
+
 import axios from "axios";
 
 type SafariPackage = {
@@ -44,7 +44,6 @@ type SafariPackage = {
   bestTime: string;
   highlights: string;
   safariImage?: string;
-  // Computed field for frontend
   includes?: string[];
   image?: string;
 };
@@ -55,6 +54,7 @@ export default function BookingPage() {
   const [safariPackages, setSafariPackages] = useState<SafariPackage[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+ 
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -183,7 +183,6 @@ export default function BookingPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-green-50 to-amber-50">
-        <Navigation />
         <div className="pt-20 pb-12 px-4">
           <div className="max-w-6xl mx-auto text-center">
             <div className="text-xl">Loading safari packages...</div>
@@ -196,7 +195,7 @@ export default function BookingPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-green-50 to-amber-50">
-        <Navigation />
+
         <div className="pt-20 pb-12 px-4">
           <div className="max-w-6xl mx-auto text-center">
             <div className="text-xl text-red-600">{error}</div>
@@ -211,7 +210,6 @@ export default function BookingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-amber-50">
-      <Navigation />
       <div className="pt-20 pb-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">

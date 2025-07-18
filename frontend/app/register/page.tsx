@@ -41,7 +41,7 @@ export default function RegisterPage() {
 
     try {
       const response = await axios.post(
-        "https://jungle-safari-backend.vercel.app/auth/register",
+        "https://jungle-safari-backend.vercel.app/api/auth/register",
         {
           username: formData.username,
           email: formData.email,

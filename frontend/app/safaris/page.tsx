@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,18 +15,18 @@ import Navigation from "@/components/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-type SafariPackage = {
-  id: string;
-  title: string;
-  location: string;
-  duration: string;
-  price: number;
-  rating: number;
-  reviews: number;
-  bestTime: string;
-  highlights: string;  // as string from backend
-  safariImage?: string;
-};
+  type SafariPackage = {
+    id: string;
+    title: string;
+    location: string;
+    duration: string;
+    price: number;
+    rating: number;
+    reviews: number;
+    bestTime: string;
+    highlights: string;  
+    safariImage?: string;
+  };
 
 export default function SafarisPage() {
   const [safaripackages, setSafariPackages] = useState<SafariPackage[]>([]);
@@ -34,7 +35,8 @@ export default function SafarisPage() {
     const getSafari = async () => {
       try {
         const response = await axios.get("http://localhost:4000/api/safari/all");
-        setSafariPackages(response.data.safaris); // assuming API returns { safaris: [] }
+        console.log("Safari API Response", response.data);
+        setSafariPackages(response.data.safari ?? []); // assuming API returns { safaris: [] }
       } catch (error) {
         console.error("Failed to fetch safaris", error);
       }
@@ -56,7 +58,7 @@ export default function SafarisPage() {
 
         {/* Safari Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {safaripackages.map((safari) => (
+          {Array.isArray(safaripackages) &&   safaripackages.map((safari) => (
             <Card key={safari.id} className="overflow-hidden hover:shadow-xl transition-shadow group">
               <div className="relative h-48">
                 <Image
@@ -104,7 +106,7 @@ export default function SafarisPage() {
                   <Button asChild variant="outline" size="sm">
                     <Link href={`/safaris/${safari.id}`}>View Details</Link>
                   </Button>
-                  <Button asChild size="sm" className="bg-green-600 hover:bg-green-700">
+                  <Button asChild size="sm" className="bg-green-600 hover:bg-green-700 ">
                     <Link href={`/booking?safari=${safari.id}`}>Book Now</Link>
                   </Button>
                 </div>

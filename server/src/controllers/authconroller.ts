@@ -75,6 +75,13 @@ export const login = async (req: Request, res: Response) => {
       sameSite: "none",
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       maxAge: 60 * 60 * 1000,
+      // localhost
+
+      // httpOnly: true,
+      // secure: false,
+      // sameSite: "lax",
+      // expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      // maxAge: 60 * 60 * 1000,
     });
     res.status(200).json({ message: "user login successfully", user });
   } catch (error) {

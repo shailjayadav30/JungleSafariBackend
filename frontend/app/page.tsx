@@ -1,48 +1,56 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Star, MapPin, Clock, Camera, TelescopeIcon as Binoculars, TreePine } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import Navigation from "@/components/navigation"
+"use client"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Star,
+  MapPin,
+  Clock,
+  Camera,
+  TelescopeIcon as Binoculars,
+  TreePine,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import Navigation from "@/components/navigation";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+
+type SafariPackage = {
+  id: string;
+  title: string;
+  location: string;
+  duration: string;
+  price: number;
+  rating: number;
+  reviews: number;
+  bestTime: string;
+  highlights: string;  
+  safariImage?: string;
+};
 
 export default function HomePage() {
-  const featuredSafaris = [
-    {
-      id: 1,
-      title: "African Big Five Safari",
-      location: "Serengeti National Park",
-      duration: "7 days",
-      price: "$2,499",
-      rating: 4.9,
-      reviews: 127,
-      image: "/placeholder.svg?height=300&width=400",
-      highlights: ["Big Five", "Great Migration", "Luxury Camps"],
-    },
-    {
-      id: 2,
-      title: "Amazon Rainforest Adventure",
-      location: "Amazon Basin, Brazil",
-      duration: "5 days",
-      price: "$1,899",
-      rating: 4.8,
-      reviews: 89,
-      image: "/placeholder.svg?height=300&width=400",
-      highlights: ["River Cruise", "Wildlife Spotting", "Indigenous Culture"],
-    },
-    {
-      id: 3,
-      title: "Borneo Orangutan Experience",
-      location: "Sabah, Malaysia",
-      duration: "4 days",
-      price: "$1,299",
-      rating: 4.7,
-      reviews: 156,
-      image: "/placeholder.svg?height=300&width=400",
-      highlights: ["Orangutans", "Canopy Walk", "Night Safari"],
-    },
-  ]
-
+   const [SafariPackages,setSafariPackages]=useState<SafariPackage[]>([])
+   useEffect(()=>{
+const getSafari=async()=>{
+  try {
+    const response=await axios.get("http://localhost:4000/api/safari/all")
+    console.log("Safari",response.data)
+    setSafariPackages(response.data.safari ?? [])
+  } catch (error) {
+    console.log("Failed to fetch safari",error)
+  }
+ }
+   getSafari()
+   },[])
+ 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-amber-50">
       <Navigation />
@@ -62,15 +70,20 @@ export default function HomePage() {
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            Wild Adventures
-            <span className="block text-amber-400">Await You</span>
+            Journey Awaits
+            <span className="block text-amber-400">Discover Nature</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
-            Embark on unforgettable jungle safaris and witness natures most magnificent creatures in their natural
-            habitat
+            Set out on captivating safaris, uncover hidden gems of nature, and
+            experience moments that bring you closer to the beauty of the
+            planet.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-lg px-8 py-6">
+            <Button
+              asChild
+              size="lg"
+              className="bg-amber-600 hover:bg-amber-700 text-lg px-8 py-6"
+            >
               <Link href="/safaris">Explore Safaris</Link>
             </Button>
             <Button
@@ -89,9 +102,12 @@ export default function HomePage() {
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Why Choose Our Safaris?</h2>
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              Why Choose Our Safaris?
+            </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Experience the wild like never before with our expert guides and premium safari packages
+              Experience the wild like never before with our expert guides and
+              premium safari packages
             </p>
           </div>
 
@@ -105,7 +121,8 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  Our experienced local guides know every trail and can spot wildlife others might miss
+                  Our experienced local guides know every trail and can spot
+                  wildlife others might miss
                 </p>
               </CardContent>
             </Card>
@@ -119,7 +136,8 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  Capture stunning wildlife photography with perfect positioning and timing
+                  Capture stunning wildlife photography with perfect positioning
+                  and timing
                 </p>
               </CardContent>
             </Card>
@@ -132,7 +150,10 @@ export default function HomePage() {
                 <CardTitle className="text-2xl">Eco-Friendly</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">Sustainable tourism that supports conservation and local communities</p>
+                <p className="text-gray-600">
+                  Sustainable tourism that supports conservation and local
+                  communities
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -143,16 +164,30 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Featured Safari Adventures</h2>
-            <p className="text-xl text-gray-600">Discover our most popular safari experiences</p>
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              Featured Safari Adventures
+            </h2>
+            <p className="text-xl text-gray-600">
+              Discover our most popular safari experiences
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredSafaris.map((safari) => (
-              <Card key={safari.id} className="overflow-hidden hover:shadow-xl transition-shadow">
+            {Array.isArray(SafariPackages) && SafariPackages.slice(0,3).map((safari) => (
+              <Card
+                key={safari.id}
+                className="overflow-hidden hover:shadow-xl transition-shadow"
+              >
                 <div className="relative h-48">
-                  <Image src={safari.image || "/placeholder.svg"} alt={safari.title} fill className="object-cover" />
-                  <Badge className="absolute top-4 right-4 bg-amber-600">{safari.price}</Badge>
+                  <Image
+                    src={safari.safariImage || "/placeholder.svg"}
+                    alt={safari.title}
+                    fill
+                    className="object-cover"
+                  />
+                  <Badge className="absolute top-4 right-4 bg-amber-600">
+                    {safari.price}
+                  </Badge>
                 </div>
 
                 <CardHeader>
@@ -169,25 +204,36 @@ export default function HomePage() {
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent>
+                <CardContent className="flex flex-col justify-between min-h-[200px]">
                   <div className="flex items-center gap-2 mb-4">
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                       <span className="font-semibold">{safari.rating}</span>
                     </div>
-                    <span className="text-gray-500">({safari.reviews} reviews)</span>
+                    <span className="text-gray-500">
+                      ({safari.reviews} reviews)
+                    </span>
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {safari.highlights.map((highlight, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
+                    {safari.highlights.split(",").map((highlight, index) => (
+                      <Badge
+                        key={index}
+                        variant="secondary"
+                        className="text-xs"
+                      >
                         {highlight}
                       </Badge>
                     ))}
                   </div>
 
-                  <Button asChild className="w-full bg-green-600 hover:bg-green-700">
-                    <Link href={`/booking?safari=${safari.id}`}>Book This Safari</Link>
+                  <Button
+                    asChild
+                    className="w-full bg-green-600 hover:bg-green-700"
+                  >
+                    <Link href={`/booking?safari=${safari.id}`}>
+                      Book This Safari
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -196,7 +242,7 @@ export default function HomePage() {
 
           <div className="text-center mt-12">
             <Button asChild variant="outline" size="lg">
-              <Link href="/safaris">View All Safaris</Link>
+              <Link href="/safaris">Show more Safaris</Link>
             </Button>
           </div>
         </div>
@@ -207,10 +253,15 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-6">Ready for Your Adventure?</h2>
           <p className="text-xl mb-8 text-green-100">
-            Join thousands of satisfied adventurers who have experienced the wild with us
+            Join thousands of satisfied adventurers who have experienced the
+            wild with us
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700">
+            <Button
+              asChild
+              size="lg"
+              className="bg-amber-600 hover:bg-amber-700"
+            >
               <Link href="/register">Create Account</Link>
             </Button>
             <Button
@@ -233,7 +284,10 @@ export default function HomePage() {
               <TreePine className="w-6 h-6 text-green-400" />
               Wild Safari
             </h3>
-            <p className="text-gray-400">Your gateway to unforgettable jungle adventures and wildlife experiences.</p>
+            <p className="text-gray-400">
+              Your gateway to unforgettable jungle adventures and wildlife
+              experiences.
+            </p>
           </div>
 
           <div>
@@ -303,5 +357,5 @@ export default function HomePage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }

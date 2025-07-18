@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -29,7 +30,7 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://jungle-safari-backend.vercel.app/api/auth/login",
+        "http://localhost:4000/api/auth/login",
         {
           email: formData.email,
           password: formData.password,
