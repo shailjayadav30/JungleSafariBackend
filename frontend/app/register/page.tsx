@@ -17,7 +17,7 @@ import { TreePine, Eye, EyeOff, User, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-
+import { API_URL } from "@/config";
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -40,11 +40,9 @@ export default function RegisterPage() {
     }
 
     try {
-      const url = process.env.NEXT_PUBLIC_URL;
-console.log("url",url)
-      // const response = await axios.post(
-      //   "/api/auth/register",
-      const response = await axios.post(`${url}api/auth/register`, {
+
+  
+      const response = await axios.post(`${API_URL}api/auth/register`, {
         username: formData.username,
         email: formData.email,
         phone: formData.phone,

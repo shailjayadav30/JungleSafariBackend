@@ -17,6 +17,7 @@ import { TreePine, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { API_URL } from "@/config";
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,11 +30,9 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const url = process.env.NEXT_PUBLIC_URL;
-      // const response = await axios.post(
-      //   "http://localhost:4000/api/auth/login"
+   console.log("API URL",API_URL)
       const response = await axios.post(
-        `${url}api/auth/login`,
+        `${API_URL}api/auth/login`,
         {
           email: formData.email,
           password: formData.password,

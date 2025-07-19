@@ -30,7 +30,7 @@ import { Separator } from "@/components/ui/separator";
 import { CalendarIcon, MapPin, Clock, Star, TreePine } from "lucide-react";
 import { format } from "date-fns";
 import Link from "next/link";
-
+import { API_URL } from "@/config";
 import axios from "axios";
 
 type SafariPackage = {
@@ -65,17 +65,14 @@ export default function BookingPage() {
     accommodation: "standard",
     specialRequests: "",
   });
-        const url = process.env.NEXT_PUBLIC_URL;
-
+        
   useEffect(() => {
     const getSafari = async () => {
       try {
         setLoading(true);
         setError(null);
-        // const response = await axios.get(
-        //   "http://localhost:4000/api/safari/all"
-        // );
-        const response = await axios.get(`${url}api/safari/all`);
+      
+        const response = await axios.get(`${API_URL}api/safari/all`);
         if (response.data?.safari && Array.isArray(response.data.safari)) {
           const transformedSafaris = response.data.safari.map(
             (safari: SafariPackage) => ({
@@ -141,10 +138,8 @@ export default function BookingPage() {
 
     try {
 
-      // const response = await axios.post(
-      //   "https://jungle-safari-backend.vercel.app/api/booking/book",
            const response = await axios.post(
-        `${url}api/booking/book`,
+        `${API_URL}api/booking/book`,
         {
           firstName: formData.firstName,
           lastName: formData.lastName,

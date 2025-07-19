@@ -14,6 +14,7 @@ import Link from "next/link";
 import Navigation from "@/components/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_URL } from "@/config";
 
   type SafariPackage = {
     id: string;
@@ -29,14 +30,13 @@ import axios from "axios";
   };
 
 export default function SafarisPage() {
-  const [safaripackages, setSafariPackages] = useState<SafariPackage[]>([]);
-        const url = process.env.NEXT_PUBLIC_URL;
+  const [safaripackages, setSafariPackages] = useState<SafariPackage[]>([]);      
 
   useEffect(() => {
     const getSafari = async () => {
       try {
-        // const response = await axios.get("http://localhost:4000/api/safari/all");
-         const response = await axios.get(`${url}api/safari/all`)
+        
+         const response = await axios.get(`${API_URL}api/safari/all`)
         console.log("Safari API Response", response.data);
         setSafariPackages(response.data.safari ?? []); // assuming API returns { safaris: [] }
       } catch (error) {
