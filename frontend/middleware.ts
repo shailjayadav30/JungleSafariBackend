@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
 
   const authToken = request.cookies.get("token")?.value;
   const path = request.nextUrl.pathname;
-  const publicPaths = ["/", "/contact", "/safaris", "/login", "/register","/about","/api/auth/register", "/api/auth/login"];
+  const publicPaths = ["/", "/contact", "/safaris", "/login", "/register","/about","/booking"];
 
   const loggedInUserCannotAccessPaths =
     path === "/login" || path === "/register";
