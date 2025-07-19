@@ -41,7 +41,7 @@ export default function RegisterPage() {
 
     try {
       const url = process.env.NEXT_PUBLIC_URL;
-
+console.log("url",url)
       // const response = await axios.post(
       //   "/api/auth/register",
       const response = await axios.post(`${url}api/auth/register`, {
