@@ -13,7 +13,7 @@ const app = express();
 app.use(
   cors({
     // origin:"http://localhost:3000" ,
-    origin:"https://jungle-safari-frontend.vercel.app/" ,
+    origin:"https://jungle-safari-frontend.vercel.app" ,
 
     credentials: true,
   })
@@ -34,5 +34,3 @@ app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
 });
 
-
-// "https://jungle-safari-frontend.vercel.app/"
