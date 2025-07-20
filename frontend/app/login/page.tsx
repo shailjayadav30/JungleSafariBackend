@@ -1,6 +1,9 @@
 "use client";
-
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/lib/store/store";
+import {login} from "@/lib/store/features/auth/authSlice"
 import type React from "react";
+import Swal from "sweetalert2"
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -20,7 +23,7 @@ import axios from "axios";
 import { API_URL } from "@/config";
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-
+const dispatch=useDispatch<AppDispatch>()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -30,7 +33,6 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-   console.log("API URL",API_URL)
       const response = await axios.post(
         `${API_URL}api/auth/login`,
         {
@@ -38,16 +40,40 @@ export default function LoginPage() {
           password: formData.password,
         },
         { withCredentials: true }
-      );
-      alert("user login successffully");
+      )
+
+    console.log("Login API response:", response.data);
+      if(response.data){
+        const userData=response.data.user
+        dispatch(
+          login({
+            id:userData.id,
+            phone:userData.phone,
+            username:userData.username,
+            email:userData.email
+          })
+        )
+         console.log("Dispatched login action to Redux.");
+      }
+      Swal.fire({
+  title:"Login success",
+  position:"center",
+  icon:"success",
+  timer:1500
+})
+    
       console.log("Response:", response.data);
       router.push("/");
     } catch (error) {
       console.error("Login failed:", error);
-      alert("Login failed. Please check your credentials.");
+      Swal.fire({
+title:"Error!",
+text:"Invalid credentials",
+icon:"error",
+timer:1500
+      })
+     
     }
-
-    console.log("Login attempt:", formData);
   };
 
   return (

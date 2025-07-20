@@ -6,4 +6,5 @@ router.use(authmiddleware);
 
 router.post("/book", createBooking);
 
+
 export default router;

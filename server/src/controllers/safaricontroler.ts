@@ -48,7 +48,6 @@ export const addsafari = async (req: Request, res: Response) => {
         reviews: parseInt(body.reviews),
         bestTime: body.bestTime,
         safariImage: safariUrl,
-      
         highlights: Array.isArray(body.highlights)
           ? body.highlights.join(", ")
           : body.highlights,

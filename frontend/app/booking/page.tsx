@@ -2,6 +2,7 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import Swal from "sweetalert2"
 import {
   Card,
   CardContent,
@@ -32,6 +33,8 @@ import { format } from "date-fns";
 import Link from "next/link";
 import { API_URL } from "@/config";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { Rootstate } from "@/lib/store/store";
 
 type SafariPackage = {
   id: string;
@@ -49,6 +52,7 @@ type SafariPackage = {
 };
 
 export default function BookingPage() {
+  const auth = useSelector((state: Rootstate) => state.auth)
   const [selectedSafari, setSelectedSafari] = useState<string | null>(null);
   const [checkInDate, setCheckInDate] = useState<Date>();
   const [safariPackages, setSafariPackages] = useState<SafariPackage[]>([]);
@@ -126,13 +130,16 @@ export default function BookingPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  if(!auth.isAuth){
+    Swal.fire({title:"Login before booking ",timer:2000})
+    return
+  }
     if (!checkInDate) {
-      alert("Please select check-in date");
+      Swal.fire({timer:1500,title:"Please select check-in date"});
       return;
     }
     if (!selectedSafari) {
-      alert("Please select a safari package");
+      Swal.fire({timer:1500,title:"Please select a safari package"});
       return;
     }
 
@@ -156,8 +163,8 @@ export default function BookingPage() {
         { withCredentials: true }
       );
 
-      alert(
-        "Booking submitted successfully! We'll contact you soon to confirm your safari adventure."
+      Swal.fire({timer:1500,title:
+        "Booking done successfully!"}
       );
       console.log("Response:", response.data);
 
@@ -175,7 +182,7 @@ export default function BookingPage() {
       setCheckInDate(undefined);
     } catch (error) {
       console.error("Booking failed", error);
-      alert("Booking failed. Please try again.");
+      Swal.fire({timer:1500,title:"Booking failed. Please try again."});
     }
   };
 

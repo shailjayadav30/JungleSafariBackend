@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-
+import Swal from "sweetalert2";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +18,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { API_URL } from "@/config";
+import { useDispatch } from "react-redux";
+import { login } from "@/lib/store/features/auth/authSlice";
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -30,18 +32,16 @@ export default function RegisterPage() {
     role: "USER",
   });
   const router = useRouter();
-
+  const dispatch = useDispatch();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match!");
+      Swal.fire({timer:1500,title:"Password does not match"});
       return;
     }
 
     try {
-
-  
       const response = await axios.post(`${API_URL}api/auth/register`, {
         username: formData.username,
         email: formData.email,
@@ -49,11 +49,18 @@ export default function RegisterPage() {
         password: formData.password,
         role: formData.role,
       });
+      const { user} = response.data;
+      dispatch(login(user))
+      Swal.fire({
+        title:"User Registered successfully",
+        icon:"success",
+  timer:1500
+      })
       console.log("Response:", response.data);
       router.push("/login");
     } catch (error) {
       console.error("Registration error:", error);
-      alert("Registration failed. Please try again.");
+      Swal.fire({timer:1500,title:"Registration failed. Please try again."});
     }
   };
 
