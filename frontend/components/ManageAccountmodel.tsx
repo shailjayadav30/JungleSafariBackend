@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import ChangePassword from "./ChangePassword";
 import { useSelector } from "react-redux";
-import { Rootstate } from "@/lib/store/store";
+import { RootState } from "@/lib/store/store";
 
 interface ManageAccountProps {
   isOpen: boolean;
@@ -19,7 +19,7 @@ interface ManageAccountProps {
 }
 
 export default function ManageAccount({ isOpen, setIsOpen }: ManageAccountProps) {
-  const user = useSelector((state: Rootstate) => state.auth.user);
+  const user = useSelector((state: RootState) => state.auth.user);
   const [showChangePassword, setShowChangePassword] = useState(false);
 
   if (!user) return null; // handle case if user is null
