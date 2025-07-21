@@ -6,6 +6,8 @@ import authrouter from "./routes/authRoutes";
 import bookingrouter from "./routes/bookingroutes";
 import vehicleroute from "./routes/vehicleroute";
 import safariroute from "./routes/safariroute";
+import contactRoute from "./routes/contactRoutes";
+
 dotenv.config();
 const PORT = process.env.PORT || "3000";
 const app = express();
@@ -25,6 +27,9 @@ app.use("/api/auth", authrouter);
 app.use("/api/booking", bookingrouter);
 app.use("/api/vehicle", vehicleroute);
 app.use("/api/safari", safariroute);
+app.use("/api/contact", contactRoute);
+
+
 
 app.get("/", (req, res) => {
   res.send("working");

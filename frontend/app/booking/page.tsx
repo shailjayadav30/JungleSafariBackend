@@ -34,7 +34,8 @@ import Link from "next/link";
 import { API_URL } from "@/config";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { Rootstate } from "@/lib/store/store";
+import { RootState } from "@/lib/store/store";
+import Image from "next/image";
 
 type SafariPackage = {
   id: string;
@@ -52,7 +53,7 @@ type SafariPackage = {
 };
 
 export default function BookingPage() {
-  const auth = useSelector((state: Rootstate) => state.auth)
+  const auth = useSelector((state: RootState) => state.auth)
   const [selectedSafari, setSelectedSafari] = useState<string | null>(null);
   const [checkInDate, setCheckInDate] = useState<Date>();
   const [safariPackages, setSafariPackages] = useState<SafariPackage[]>([]);
@@ -474,7 +475,7 @@ export default function BookingPage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="aspect-video relative rounded-lg overflow-hidden">
-                      <img
+                      <Image
                         src={
                           selectedPackage.image ||
                           "/placeholder.svg?height=300&width=400"

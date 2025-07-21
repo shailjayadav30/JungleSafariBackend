@@ -22,34 +22,59 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MapPin, Phone, Mail, Clock, TreePine } from "lucide-react";
+import axios from "axios";
+import { API_URL } from "@/config";
+import Swal from "sweetalert2";
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    name: "",
+    FullName: "",
     email: "",
     phone: "",
-    subject: "",
-    inquiry: "",
+    Subject: "",
+    inquiryType: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Contact form submission:", formData);
-    alert("Thank you for your message! We'll get back to you within 24 hours.");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      inquiry: "",
-      message: "",
-    });
+    try {
+      const response = await axios.post(`${API_URL}api/contact/c`, {
+        FullName: formData.FullName,
+        email: formData.email,
+        phone: formData.phone,
+        Subject: formData.Subject,
+        inquiryType: formData.inquiryType,
+        message: formData.message,
+      });
+
+      console.log("Contact form submission:", response.data);
+      Swal.fire({
+        title: "Thank you for your message!",
+        text: "We'll get back to you within 24 hours.",
+        icon: "success",
+        timer: 2000,
+      });
+
+      setFormData({
+        FullName: "",
+        email: "",
+        phone: "",
+        Subject: "",
+        inquiryType: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      Swal.fire({
+        title: "Error",
+        text: "There was a problem submitting your message. Please try again later.",
+        icon: "error",
+      });
+    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-amber-50">
-
-
       <div className="pt-20 pb-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
@@ -79,9 +104,9 @@ export default function ContactPage() {
                     <Label htmlFor="name">Full Name</Label>
                     <Input
                       id="name"
-                      value={formData.name}
+                      value={formData.FullName}
                       onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
+                        setFormData({ ...formData, FullName: e.target.value })
                       }
                       required
                       className="h-12"
@@ -119,25 +144,31 @@ export default function ContactPage() {
                   <div className="space-y-2">
                     <Label>Inquiry Type</Label>
                     <Select
-                      value={formData.inquiry}
+                      value={formData.inquiryType}
                       onValueChange={(value) =>
-                        setFormData({ ...formData, inquiry: value })
+                        setFormData({ ...formData, inquiryType: value })
                       }
                     >
                       <SelectTrigger className="h-12">
-                        <SelectValue placeholder="What can we help you with?" />
+                        <SelectValue placeholder="Select Inquiry Type" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="booking">Safari Booking</SelectItem>
-                        <SelectItem value="information">
+                        <SelectItem value="SAFARI_BOOKING">
+                          Safari Booking
+                        </SelectItem>
+                        <SelectItem value="GENERAL_INFORMATION">
                           General Information
                         </SelectItem>
-                        <SelectItem value="custom">Custom Safari</SelectItem>
-                        <SelectItem value="group">Group Booking</SelectItem>
-                        <SelectItem value="support">
+                        <SelectItem value="CUSTOM_SAFARI">
+                          Custom Safari
+                        </SelectItem>
+                        <SelectItem value="GROUP_BOOKING">
+                          Group Booking
+                        </SelectItem>
+                        <SelectItem value="CUSTOMER_SUPPORT">
                           Customer Support
                         </SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="OTHER">Other</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -146,9 +177,9 @@ export default function ContactPage() {
                     <Label htmlFor="subject">Subject</Label>
                     <Input
                       id="subject"
-                      value={formData.subject}
+                      value={formData.Subject}
                       onChange={(e) =>
-                        setFormData({ ...formData, subject: e.target.value })
+                        setFormData({ ...formData, Subject: e.target.value })
                       }
                       required
                       className="h-12"
