@@ -1,6 +1,6 @@
 "use client";
 import { useSelector, useDispatch } from "react-redux";
-import { Rootstate } from "@/lib/store/store";
+import { RootState } from "@/lib/store/store";
 import { logout } from "@/lib/store/features/auth/authSlice"; 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,7 @@ import Link from "next/link";
 import ManageAcccount from "./ManageAccountmodel";
 
 export default function Navigation() {
-  const auth = useSelector((state: Rootstate) => state.auth);
+  const auth = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
